@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, get_user_model
 from .forms import LoginForm,RegisterForm
 # Create your views here.
 def welcomePage(request):
-    return render(request,'base.html')
+    return render(request,'shop/index.html')
 
 
 def login_page(request):

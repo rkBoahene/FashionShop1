@@ -16,9 +16,8 @@
 </head>
 <body>
     {% include 'partials/_navbar.html' %}
-    {% block content %}
-        <div>new shop here</div>
-    {% endblock content %}
+    {% include 'partials/shop_overlay.html' %}
+    {% block content %}    {% endblock content %}
     {% include 'partials/_footer.html' %}
 
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
