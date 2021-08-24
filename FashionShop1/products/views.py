@@ -1,3 +1,4 @@
+from django.http import request
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render
 
@@ -15,3 +16,11 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
     template_name = "products/details.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView).get_context_data(**kwargs)
+        
+        return context
+    
+def detail(request):
+    return render(request,"products/details.html")
