@@ -16,6 +16,9 @@ def upload_image_path(instance, filename):
 
 # create model manager to extend default 'objects call on model query
 class ProductManager(models.Manager):
+    def featured(self,id):
+        return self.get_queryset().filter(featured=True)
+    
     # define model manager here
     def get_by_id(self, id):
         qs = self.get_queryset().filter(id=id)
@@ -30,6 +33,7 @@ class Product(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    featured = models.BooleanField(default=False)
 
     # use product manager for objects
     objects = ProductManager()

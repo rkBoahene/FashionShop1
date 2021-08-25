@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.http import request
 from django.http.response import Http404
 from django.views.generic import ListView, DetailView
@@ -34,3 +35,20 @@ class ProductDetailView(DetailView):
     
 def detail(request):
     return render(request,"products/details.html")
+
+
+class ProductFeaturedListView(ListView):
+    template_name = "products/featured-product.html"
+    
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        return Product.objects.featured()
+
+
+class ProductFeaturedDetailView(DetailView):
+    
+    template_name = "products/featured-product-detail.html"
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        return Product.objects.featured()
