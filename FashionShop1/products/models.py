@@ -14,8 +14,18 @@ def upload_image_path(instance, filename):
     final_filename = '{new_filename}.{ext}'.format(new_filename=name,ext=ext)
     return "products/{new_filename}/{final_filename}".format(new_filename=new_filename,final_filename=final_filename)
 
+# create custom queryset for featured product
+class ProductQueryset(models.query.QuerySet):
+    def featured(self):
+        return self.filter(featured=True)
+
+
 # create model manager to extend default 'objects call on model query
 class ProductManager(models.Manager):
+    # override queryset with custom queryset
+    def get_queryset(self):
+        return ProductQueryset(self.model, using=self.db)
+        
     def featured(self,id):
         return self.get_queryset().filter(featured=True)
     
