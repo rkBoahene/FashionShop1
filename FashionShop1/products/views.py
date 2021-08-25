@@ -1,4 +1,5 @@
 from django.http import request
+from django.http.response import Http404
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render
 
@@ -21,6 +22,15 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView).get_context_data(**kwargs)
         
         return context
+
+    def get_object(self, *args, **kwargs):
+        request = self.request
+        pk = self.kwargs.get('pk')
+        instance = Product.objects.get_by_id(pk)
+        if instance is None:
+            return Http404("Product does not exist")
+        return instance
+
     
 def detail(request):
     return render(request,"products/details.html")
