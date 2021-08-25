@@ -1,7 +1,8 @@
 import random
 import os
 from django.db import models
-
+from django.db.models.signals import pre_save
+from .utils import unique_slug_generator
 
 def get_file_name(filepath):
     base_name = os.path.basename(filepath)
@@ -25,9 +26,9 @@ class ProductManager(models.Manager):
     # override queryset with custom queryset
     def get_queryset(self):
         return ProductQueryset(self.model, using=self.db)
-        
-    def featured(self,id):
-        return self.get_queryset().filter(featured=True)
+
+    def features(self,id):
+        return self.get_queryset().featured()
     
     # define model manager here
     def get_by_id(self, id):
@@ -40,6 +41,7 @@ class ProductManager(models.Manager):
 # Create your models here.
 class Product(models.Model):
     title = models.CharField( max_length=150)
+    slug = models.SlugField(default='bolo',unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
@@ -51,3 +53,8 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
+def product_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+pre_save.connect(product_pre_save_receiver, sender=Product)

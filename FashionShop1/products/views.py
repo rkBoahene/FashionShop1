@@ -2,7 +2,7 @@ from django.db.models.query import QuerySet
 from django.http import request
 from django.http.response import Http404
 from django.views.generic import ListView, DetailView
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from .models import Product
 # Create your views here.
@@ -44,6 +44,26 @@ class ProductFeaturedListView(ListView):
         request = self.request
         return Product.objects.featured()
 
+
+class ProductDetailSlugView(DetailView):
+    queryset = Product.objects.all()
+    template_name = "products/featured-product.html"
+
+    def get_object(self, *args, **kwargs):
+        request = self.request
+        slug = self.kwargs.get('slug')
+        # instance = get_object_or_404(Product, slug=slug)
+        try:
+            instance = Product.objects.get(slug=slug)
+        except Product.DoesNotExist:
+            raise Http404("Not found")
+        except Product.MultipleObjectsReturned:
+            qs = Product.objects.filter(slug=slug)
+            instance = qs.first()
+        except:
+            raise Http404('Nooooo')
+        return instance
+    
 
 class ProductFeaturedDetailView(DetailView):
     
