@@ -1,5 +1,8 @@
 {% load static %}
 
+{% url 'products:index'  as home_url%}
+{% url 'about_company'  as about_us%}
+
 <nav class="navbar navbar-expand-lg navbar-light bg-white w-100 navigation" id="navbar">
   <div class="container">
     <a class="navbar-brand font-weight-bold" href="index-2.html"><img src="{% static 'images/logo.png' %}" alt="Adrian."
@@ -12,11 +15,11 @@
 
     <div class="collapse navbar-collapse " id="main-navbar">
       <ul class="navbar-nav mx-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'products:index' %}">Home </a>
+        <li class="nav-item {% if request.path == home_url%}active{% endif %}">
+          <a class="nav-link" href="{{home_url}}">Home </a>
         </li>
 
-        <li class="nav-item"><a class="nav-link" href="">Shop</a></li>
+        <li class="nav-item {% if request.path == about_us %}active{% endif %}"><a class="nav-link" href="{{about_us}}">Shop</a></li>
         
         
 
