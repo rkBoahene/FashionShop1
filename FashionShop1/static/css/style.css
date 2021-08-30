@@ -800,6 +800,7 @@ a.text-primary:hover {
 
 .slider .slider-caption {
   padding: 160px 0px;
+  margin: auto;
 }
 
 .slider .slider-caption span {
