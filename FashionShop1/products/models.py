@@ -22,6 +22,10 @@ class ProductQueryset(models.query.QuerySet):
     def featured(self):
         return self.filter(featured=True)
 
+    def search(self, query):
+        lookup = Q(title__icontains=query) | Q(description__icontains=query)
+        return self.filter(lookup).distinct()  
+
 
 # create model manager to extend default 'objects call on model query
 class ProductManager(models.Manager):
@@ -41,8 +45,7 @@ class ProductManager(models.Manager):
         return None 
 
     def search(self, query):
-        lookup = Q(title__icontains=query) | Q(description__icontains=query)
-        return self.get_queryset().active().filter(lookup).distinct()  
+        return self.get_queryset().active().search(query)
 
 # Create your models here.
 class Product(models.Model):
