@@ -33,7 +33,7 @@ class ProductManager(models.Manager):
     def get_queryset(self):
         return ProductQueryset(self.model, using=self.db)
 
-    def features(self,id):
+    def featured(self,id):
         return self.get_queryset().featured()
     
     # define model manager here

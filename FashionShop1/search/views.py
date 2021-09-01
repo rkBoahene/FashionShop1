@@ -12,6 +12,5 @@ class SearchProductView(ListView):
         request = self.request
         query = request.GET.get('q',None)
         if query is not None:
-              
-            return Product.objects.filter(lookup).distinct()
+            return Product.objects.search(query)
         return Product.objects.none()
