@@ -1,0 +1,15 @@
+{% load static %}
+<form action="{% url 'search:query' %}" class="search-form">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-10 col-9">
+        <input type="text" class="form-control" placeholder="Search..." name="q" value="{{ request.GET.q}}"/>
+        </div>
+        <div class="col-md-2 col-3 text-right">
+        <div class="search_toggle toggle-wrap d-inline-block">
+            <img class="search-close" src="{% static 'images/close.png' %}" alt="" />
+        </div>
+        </div>
+    </div>
+    </div>
+</form>

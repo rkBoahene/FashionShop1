@@ -4,8 +4,12 @@
 
 {% block content %}
 {% include 'partials/_sub_nav_header.html' %}
-
-<div>Searched for {{ request.GET.q }} <hr/></div>
+{% comment %} {{ request.path}} {% endcomment %}
+{% if request.GET.q %}
+<div>Results for {{ request.GET.q }} <hr/></div>
+{% else %}
+<div>No results found for {{request.GET.q}}</div>
+{% endif %}
 
 <section class="products-shop section">
 	<div class="container">
