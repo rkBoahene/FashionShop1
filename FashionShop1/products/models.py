@@ -55,7 +55,11 @@ class Product(models.Model):
     slug = models.SlugField(default='bolo',unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    main_image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    image1 = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    image2 = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    image3 = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    image4 = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     featured = models.BooleanField(default=False)
 
     # use product manager for objects
