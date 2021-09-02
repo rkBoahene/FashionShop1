@@ -22,6 +22,9 @@ class ProductQueryset(models.query.QuerySet):
     def featured(self):
         return self.filter(featured=True)
 
+    def active(self):
+        return self.filter(active=True)
+
     def search(self, query):
         lookup = (Q(title__icontains=query) | 
         Q(description__icontains=query) | 
@@ -37,6 +40,9 @@ class ProductManager(models.Manager):
 
     def featured(self,id):
         return self.get_queryset().featured()
+
+    def all(self):
+        return self.get_queryset().active()
     
     # define model manager here
     def get_by_id(self, id):
@@ -49,18 +55,22 @@ class ProductManager(models.Manager):
     def search(self, query):
         return self.get_queryset().active().search(query)
 
+
 # Create your models here.
 class Product(models.Model):
     title = models.CharField( max_length=150)
     slug = models.SlugField(default='bolo',unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    main_image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    main_image = models.ImageField(upload_to=upload_image_path, null=False, blank=False)
     image1 = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     image2 = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     image3 = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     image4 = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     featured = models.BooleanField(default=False)
+    active = models.BooleanField()
+    flash_sale = models.BooleanField(default=False)
+    flash_sale_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, blank=True, null=True)
 
     # use product manager for objects
     objects = ProductManager()

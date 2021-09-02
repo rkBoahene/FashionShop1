@@ -20,39 +20,37 @@ class ProductListView(ListView):
         return Product.objects.all()
 
     
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = "products/details.html"
+# class ProductDetailView(DetailView):
+#     model = Product
+#     template_name = "products/details.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(ProductDetailView).get_context_data(**kwargs)
-        
-        return context
+#     def get_context_data(self,* args, **kwargs):
+#         context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
+#         return context
 
-    def get_object(self, *args, **kwargs):
-        request = self.request
-        pk = self.kwargs.get('pk')
-        instance = Product.objects.get_by_id(pk)
-        if instance is None:
-            return Http404("Product does not exist")
-        return instance
+#     # using a model manager to get product detail
+#     # mind that get_queryset cn be used instead of get_object
+#     def get_object(self, *args, **kwargs):
+#         request = self.request
+#         pk = self.kwargs.get('pk')
+#         instance = Product.objects.get_by_id(pk)
+#         if instance is None:
+#             return Http404("Product does not exist")
+#         return instance
 
+
+
+# class ProductFeaturedListView(ListView):
+#     template_name = "products/featured-product.html"
     
-def detail(request):
-    return render(request,"products/details.html")
-
-
-class ProductFeaturedListView(ListView):
-    template_name = "products/featured-product.html"
-    
-    def get_queryset(self, *args, **kwargs):
-        request = self.request
-        return Product.objects.featured()
+#     def get_queryset(self, *args, **kwargs):
+#         request = self.request
+#         return Product.objects.featured()
 
 
 class ProductDetailSlugView(DetailView):
     queryset = Product.objects.all()
-    template_name = "products/featured-product.html"
+    template_name = "products/details.html"
 
     def get_object(self, *args, **kwargs):
         request = self.request
