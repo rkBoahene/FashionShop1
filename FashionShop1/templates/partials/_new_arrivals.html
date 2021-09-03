@@ -14,29 +14,7 @@
 
     <div class="row">
 	{% for item in object_list %}
-      <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5" >
-      	<div class="product">
-			<div class="product-wrap">
-				<a href="{% url 'products:product-detail' item.slug %}"><img class="img-fluid w-100 mb-3 img-first" src="{{ item.main_image.url }}" alt="product-img" /></a>
-				<a href="{% url 'products:product-detail' item.slug %}"><img class="img-fluid w-100 mb-3 img-second" src="{{ item.image1.url}}" alt="product-img" /></a>
-			</div>
-
-			{% if item.featured %}
-				<span class="onsale">Sale</span>
-			{% endif %}
-			<div class="product-hover-overlay">
-				<a href=""><i class="tf-ion-android-cart"></i></a>
-				<a href=""><i class="tf-ion-ios-heart"></i></a>
-	      	</div>
-
-			<div class="product-info">
-				<h2 class="product-title h5 mb-0"><a href="{% url 'products:product-detail' item.slug %}">{{ item.title }}</a></h2>
-				<span class="price">
-					${{item.price}}
-				</span>
-			</div>
-		</div>
-      </div>
+      {% include 'snippets/product-item.html' with instance=item %}
 	{% endfor %}
 
     </div>
