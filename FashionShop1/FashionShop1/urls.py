@@ -20,11 +20,13 @@ from django.urls import path
 from django.urls.conf import include
 from django.conf.urls.static import static
 from fashionUser.views import about_company, contact_us
+from cart.views import cart_home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth', include('shop.urls')),
     path('', include('products.urls', namespace='products')),
     path('search/', include('search.urls', namespace='search')),
+    path('cart/', cart_home, name='cart'),
     path('about/',about_company, name='about_company'),
     path('contact/',contact_us, name='contact_us'),
 ] 
