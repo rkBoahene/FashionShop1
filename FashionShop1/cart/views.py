@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Cart
 # Create your views here.
+
 def cart_create(user=None):
     cart_obj = Cart.objects.create(user=None)
     return cart_obj
