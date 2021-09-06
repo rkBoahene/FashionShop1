@@ -13,7 +13,7 @@ class CartManager(models.Manager):
         if qs.count() == 1:
             new_obj = False
             cart_obj = qs.first()
-            if request.user.is_authenticated() and cart_obj.user is None:
+            if request.user.is_authenticated and cart_obj.user is None:
                 cart_obj.user = request.user
                 cart_obj.save()
         else:
@@ -60,6 +60,9 @@ m2m_changed.connect(m2m_changed_cart_receiver, sender=Cart.products.through)
 
 # presave receiver to update total with subtotal value
 def pre_save_cart_receiver(sender, instance, *args, **kwargs):
-    instance.total = instance.subtotal
+    if instance.subtotal > 0:
+        instance.total = instance.subtotal
+    else:
+        instance.total = 0.0
 
 pre_save.connect(pre_save_cart_receiver, sender=Cart)
