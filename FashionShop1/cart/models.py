@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.db.models.signals import pre_save, post_save, m2m_changed
 
 from products.models import Product
 
@@ -42,3 +43,14 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
     
+
+
+def pre_save_cart_receiver(sender, instance,action, *args, **kwargs):
+    if action in ('post_add','post_remove','post_clear'):
+        products = instance.products.all()
+        total = 0
+        for item in products:
+            total += item.price
+        instance.total = total
+    
+m2m_changed.connect(pre_save_cart_receiver, sender=Cart.products.through)
