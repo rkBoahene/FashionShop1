@@ -4,7 +4,8 @@
 {% include 'partials/_sub_nav_header.html' %}
 
 <section class="cart shopping page-wrapper">
-  {% if cart.products.exist %}
+
+  {% if cart.products.exists %}
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-12">
@@ -26,27 +27,27 @@
                       {% for product in cart.products.all %}
                         <tr class="cart_item">
                             <td class="product-thumbnail" data-title="Thumbnail">
-                                <a href="#"><img src="images/shop/cart/cart-1.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""></a>
+                                <img src="{{ product.main_image.url}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="product image">
                             </td>
 
                             <td class="product-name" data-title="Product">
-                                <a href="#">Trendy Cloth</a>
+                                <span> <a href="{{product.get_absolute_url}}">{{product.title}}</a></span>
                             </td>
 
                             <td class="product-price" data-title="Price">
-                                <span class="amount"><span class="currencySymbol">$</span>90.00</span>
+                                <span class="amount"><span class="currencySymbol">$</span>{{product.price}}</span>
                             </td>
 
                             <td class="product-quantity" data-title="Quantity">
                                 <div class="quantity">
                                     <label class="sr-only" >Quantity</label>
 
-                                    <input type="number" id="qty" class="input-text qty text" step="1" min="0" max="9" value="1" title="Qty" size="4"  >
+                                    <input type="number" id="qty" class="input-text qty text" step="1" min="0" max="9" value="{{cart.quantity}}" title="Qty" size="4"  >
                                 </div>
                             </td>
                             <td class="product-subtotal" data-title="Total">
                                 <span class="amount">
-                                  <span class="currencySymbol">$</span>90.00</span>
+                                  <span class="currencySymbol">$</span>{{cart.subtotal }}</span>
                             </td>
 
                              <td class="product-remove" data-title="Remove">
@@ -86,7 +87,7 @@
               <ul class="list-unstyled mb-4">
                 <li class="d-flex justify-content-between pb-2 mb-3">
                   <h5>Subtotal</h5>
-                  <span>$90.00</span>
+                  <span>${{cart.subtotal}}</span>
                 </li>
 
                   <li class="d-flex justify-content-between pb-2 mb-3">
@@ -96,13 +97,17 @@
 
                   <li class="d-flex justify-content-between pb-2">
                   <h5>Total</h5>
-                  <span>${{ cart }}</span>
+                  <span>${{ cart.total }}</span>
                 </li>
               </ul>
               <a href="#" class="btn btn-main btn-small">Proceed to checkout</a>
           </div>
         </div>
       </div>
+    </div>
+  {% else %}
+    <div class="container">
+      No item in cart
     </div>
   {% endif %}
   </section>
