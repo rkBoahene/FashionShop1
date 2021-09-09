@@ -17,17 +17,18 @@
                             <th class="product-thumbnail">&nbsp;</th>
                             <th class="product-name">Product</th>
                             <th class="product-price">Price</th>
-                            <th class="product-quantity">Quantity</th>
+                            {% comment %} <th class="product-quantity">Quantity</th> {% endcomment %}
                             <th class="product-subtotal">Total</th>
                             <th class="product-remove">&nbsp;</th>
                         </tr>
                       </thead>
 
                       <tbody>
+                     
                       {% for product in cart.products.all %}
                         <tr class="cart_item">
                             <td class="product-thumbnail" data-title="Thumbnail">
-                                <img src="{{ product.main_image.url}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="product image">
+                               {{ forloop.counter}} <img src="{{ product.main_image.url}}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="product image">
                             </td>
 
                             <td class="product-name" data-title="Product">
@@ -37,21 +38,21 @@
                             <td class="product-price" data-title="Price">
                                 <span class="amount"><span class="currencySymbol">$</span>{{product.price}}</span>
                             </td>
-
+{% comment %} 
                             <td class="product-quantity" data-title="Quantity">
                                 <div class="quantity">
                                     <label class="sr-only" >Quantity</label>
 
-                                    <input type="number" id="qty" class="input-text qty text" step="1" min="0" max="9" value="{{cart.quantity}}" title="Qty" size="4"  >
+                                    <input type="number" id="qty" class="input-text qty text" step="1" min="0" max="9" value="{{product.quantity}}" title="Qty" size="4"  readonly>
                                 </div>
-                            </td>
+                            </td> {% endcomment %}
                             <td class="product-subtotal" data-title="Total">
                                 <span class="amount">
                                   <span class="currencySymbol">$</span>{{cart.subtotal }}</span>
                             </td>
 
                              <td class="product-remove" data-title="Remove">
-                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="30" data-product_sku="">×</a>           
+                                <a href="{% url 'cart:update' %}" class="remove" aria-label="Remove this item" data-product_id="30" data-product_sku="">×</a>           
                             </td>
                         </tr>
                       {% endfor %}
@@ -68,8 +69,9 @@
                                   </span>
                                 </div>
 
-                                <input type="hidden" id="woocommerce-cart-nonce" name="woocommerce-cart-nonce" value="27da9ce3e8"> {% endcomment %}
+                                <input type="hidden" id="woocommerce-cart-nonce" name="woocommerce-cart-nonce" value="27da9ce3e8">
                                 <input type="hidden" name="_wp_http_referer" value="/cart/">        
+                                 {% endcomment %}
                               </td>
                         </tr>
                       </tbody>

@@ -59,7 +59,7 @@
       {% comment %} cart menu dropdown {% endcomment %}
       <li class="dropdown cart-nav dropdown-slide list-inline-item">
         <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
-          <i class="tf-ion-android-cart"></i>
+          <i class="tf-ion-android-cart">{{ request.session.cart_items}}</i>
         </a>
         <div class="dropdown-menu cart-dropdown">
           <!-- Cart Item -->
@@ -78,7 +78,7 @@
           </div><!-- / Cart Item -->
 
           <!-- Cart Item -->
-          <div class="media">
+          {% comment %} <div class="media">
             <a href="#">
               <img class="media-object img-fluid mr-3" src="{% static 'images/shop/cart/cart-2.jpg' %}" alt="image" />
             </a>
@@ -90,7 +90,8 @@
               </div>
             </div>
             <a href="#" class="remove"><i class="tf-ion-close"></i></a>
-          </div><!-- / Cart Item -->
+          </div> {% endcomment %}
+          <!-- / Cart Item -->
 
           <div class="cart-summary">
             <span class="h6">Total</span>

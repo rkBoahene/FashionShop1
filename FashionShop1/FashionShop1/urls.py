@@ -13,7 +13,6 @@ urlpatterns = [
     path('', include('products.urls', namespace='products')),
     path('search/', include('search.urls', namespace='search')),
     path('cart/', include('cart.urls', namespace='cart')),
-    # path('cart/', cart_home, name='cart'),
     path('about/',about_company, name='about_company'),
     path('contact/',contact_us, name='contact_us'),
 ] 
