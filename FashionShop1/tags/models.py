@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 
 from products.models import Product
-from products.utils import unique_slug_generator
+from FashionShop1.utils import unique_slug_generator
 
 # Create your models here.
 class Tag(models.Model):

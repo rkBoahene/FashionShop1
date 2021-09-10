@@ -16,7 +16,7 @@ class Order(models.Model):
     # billing_profile = 
     # shipping_address =
     # billing_address = 
-    cart = models.ForeignKey(Cart)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     status = models.CharField(max_length=100, default='created', choices=ORDER_STATUS_CHOICES)
     shipping_total = models.DecimalField(default=6.00 ,max_digits=10, decimal_places=2)
     total = models.DecimalField(default=0.00 ,max_digits=10, decimal_places=2)
