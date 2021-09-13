@@ -33,6 +33,6 @@ def checkout_home(request):
     if cart_created or cart_obj.products.count() == 0:
         return redirect('cart:home')
     else:
-        order_obj, new_order_obj = Order.objects.new_or_get(cart=cart_obj)
+        order_obj, new_order_obj = Order.objects.get_or_create(cart=cart_obj)
     
     return render(request, 'cart/checkout.html',{'object': order_obj})
