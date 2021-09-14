@@ -3,6 +3,7 @@
 {% url 'products:index'  as home_url%}
 {% url 'about_company'  as about_us%}
 {% url 'contact_us'  as contact%}
+{% url 'logout'  as logout%}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white w-100 navigation" id="navbar">
   <div class="container">
@@ -90,18 +91,27 @@
         <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown" >
         <i class="tf-ion-ios-person mr-3"></i>
         </a>
-        <div class="dropdown-menu cart-dropdown">
-          <ul >
-            <li ><a href="dashboard.html">Dahsboard</a></li>
-            <li><a href="order.html">Orders</a></li>
-            
-            <li><a href="address.html">Address</a></li>
-            <li><a href="profile-details.html">Profile Details</a></li>
-            <li><a href="{% url 'accounts:login' %}">Login</a></li>
-            <li><a href="{% url 'accounts:register' %}">SignUp</a></li>
-            <li><a href="forgot-password.html">Forgot Password</a></li>
-          </ul>
-        </div>
+        {% if user.is_authenticated %}
+          <div class="dropdown-menu cart-dropdown">
+            <ul >
+              <li ><a href="">Dahsboard</a></li>
+              <li><a href="">Orders</a></li>
+              
+              <li><a href="">Address</a></li>
+              <li><a href="">Profile Details</a></li>
+              <li><a href="">Forgot Password</a></li>
+              <li><a href="{{ logout }}">Logout</a></li>
+            </ul>
+          </div>
+        {% else %}
+          <div class="dropdown-menu cart-dropdown">
+            <ul >
+              <li><a href="{% url 'accounts:login' %}">Login</a></li>
+              <li><a href="{% url 'accounts:register' %}">SignUp</a></li>
+            </ul>
+          </div>
+        {% endif %}
+        
       </li>
     </ul>
   </div>

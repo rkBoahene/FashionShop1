@@ -2,6 +2,7 @@
 from os import name
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView
 from django.urls import path
 from django.urls.conf import include
 from django.conf.urls.static import static
@@ -10,7 +11,8 @@ from fashionUser.views import about_company, contact_us
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth', include('accounts.urls')),
+    path('auth/', include('accounts.urls')),
+    path('logout/', LogoutView.as_view(),name='logout'),
     path('', include('products.urls', namespace='products')),
     path('search/', include('search.urls', namespace='search')),
     path('cart/', include('cart.urls', namespace='cart')),
