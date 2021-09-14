@@ -59,7 +59,7 @@ class ProductManager(models.Manager):
 # Create your models here.
 class Product(models.Model):
     title = models.CharField( max_length=150)
-    slug = models.SlugField(default='bolo',unique=True)
+    slug = models.SlugField(blank=True,unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     main_image = models.ImageField(upload_to=upload_image_path, null=False, blank=False)
