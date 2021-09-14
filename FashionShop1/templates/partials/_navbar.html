@@ -59,47 +59,28 @@
       {% comment %} cart menu dropdown {% endcomment %}
       <li class="dropdown cart-nav dropdown-slide list-inline-item">
         <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
-          <i class="tf-ion-android-cart">{{ request.session.cart_items}}</i>
+          <i class="tf-ion-android-cart"></i>
         </a>
         <div class="dropdown-menu cart-dropdown">
           <!-- Cart Item -->
           <div class="media">
-            <a href="#">
-              <img class="media-object img- mr-3" src="{% static 'images/shop/cart/cart-1.jpg' %}" alt="image" />
-            </a>
+            
             <div class="media-body">
-              <h6>Ladies Bag</h6>
-              <div class="cart-price">
-                <span>1 x</span>
-                <span>1250.00</span>
-              </div>
+              <h6>{{request.session.cart_items}} Items in cart</h6>
+             
             </div>
-            <a href="#" class="remove"><i class="tf-ion-close"></i></a>
-          </div><!-- / Cart Item -->
-
-          <!-- Cart Item -->
-          {% comment %} <div class="media">
-            <a href="#">
-              <img class="media-object img-fluid mr-3" src="{% static 'images/shop/cart/cart-2.jpg' %}" alt="image" />
-            </a>
-            <div class="media-body">
-              <h6>Skinny Jeans</h6>
-              <div class="cart-price">
-                <span>1 x</span>
-                <span>1250.00</span>
-              </div>
-            </div>
-            <a href="#" class="remove"><i class="tf-ion-close"></i></a>
-          </div> {% endcomment %}
+            
+          </div>
           <!-- / Cart Item -->
 
+
           <div class="cart-summary">
-            <span class="h6">Total</span>
-            <span class="total-price h6">$1799.00</span>
+            {% comment %}<span class="h6">Total</span>
+             <span class="total-price h6">${{request.session.cart_items__subtotal}}</span> {% endcomment %}
 
             <div class="text-center cart-buttons mt-3">
               <a href="{% url 'cart:home' %}" class="btn btn-small btn-transparent btn-block">View Cart</a>
-              <a href="checkout.html" class="btn btn-small btn-main btn-block">Checkout</a>
+              <a href="{% url 'cart:checkout_home' %}" class="btn btn-small btn-main btn-block">Checkout</a>
             </div>
           </div>
         </div>
