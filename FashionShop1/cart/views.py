@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from .models import Cart
 from products.models import Product
 from orders.models import Order
-from accounts.forms import LoginForm
+from accounts.forms import LoginForm, GuestForm
 from fashionUser.models import BillingProfile
 # Create your views here.
 
@@ -40,6 +40,8 @@ def checkout_home(request):
     billing_profile = None
 
     login_form = LoginForm()
+    guest_form = GuestForm()
+    
     if user.is_authenticated:
         billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(user=user, email=user.email)
 
